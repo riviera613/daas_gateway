@@ -29,4 +29,9 @@ public interface Device {
 	 * @param msg	接收到的消息
 	 */
 	public void handler(String msg);
+	
+	/**
+	 * 设备主动下线
+	 */
+	public void offline();
 }

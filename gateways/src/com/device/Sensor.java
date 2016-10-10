@@ -41,6 +41,8 @@ public class Sensor extends AbstractDevice {
 	public void handler(String msg) {
 		temp = msg.substring(6, 8);
 		humi = msg.substring(10, 12);
-		System.out.println("Temp: " + temp + ", Humi: " + humi);
+		if(temp.equals("00") && humi.equals("00")) {
+			offline();
+		}
 	}
 }

@@ -40,9 +40,18 @@ public class DeviceController {
 	 */
 	@RequestMapping(value="/{id}/{type}/{params}", method=RequestMethod.GET)
 	@ResponseBody
-	public String control(@PathVariable("id") String id, @PathVariable("type") String type, 
-							@PathVariable("params") String params) {
+	public String control(@PathVariable("id") String id, @PathVariable("type") String type, @PathVariable("params") String params) {
 		System.out.println("control: " + id + " " + type + " " + params);
 		return DeviceMap.get(id).control(type, new JSONObject(params));
+	}
+	
+	/**
+	 * 查看当前所有在线的设备
+	 * @return
+	 */
+	@RequestMapping(value="/device_map", method=RequestMethod.GET)
+	@ResponseBody
+	public String getDeviceMap() {
+		return DeviceMap.map.toString();
 	}
 }

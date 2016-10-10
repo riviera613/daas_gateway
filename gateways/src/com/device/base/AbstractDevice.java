@@ -1,5 +1,7 @@
 package com.device.base;
 
+import com.listener.CtxDeviceMap;
+
 import io.netty.channel.ChannelHandlerContext;
 
 /**
@@ -17,7 +19,7 @@ public abstract class AbstractDevice implements Device{
 	protected ChannelHandlerContext ctx = null;
 	
 	public AbstractDevice(String id) {
-		this.id = id;
+		this(id, null);
 	}
 	
 	public AbstractDevice(String id, ChannelHandlerContext ctx) {
@@ -27,5 +29,12 @@ public abstract class AbstractDevice implements Device{
 	
 	public void setCtx(ChannelHandlerContext ctx) {
 		this.ctx = ctx;
+	}
+	
+	public void offline() {
+		DeviceMap.remove(id);
+		if(ctx != null) {
+			CtxDeviceMap.remove(ctx);
+		}
 	}
 }

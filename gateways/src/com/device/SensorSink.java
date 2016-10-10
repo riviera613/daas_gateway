@@ -32,7 +32,7 @@ public class SensorSink extends AbstractDevice {
 
 	@Override
 	public void handler(String msg) {
-		String sensorId = id + "#" + msg.substring(0, 5);
+		String sensorId = id + "_" + msg.substring(0, 5);
 		Device sensor = DeviceMap.get(sensorId);
 		if(sensor == null) {
 			sensor = DeviceFactory.getInstance("Sensor", sensorId);

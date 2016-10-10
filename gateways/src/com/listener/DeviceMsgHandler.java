@@ -24,11 +24,22 @@ public class DeviceMsgHandler extends SimpleChannelInboundHandler<String>{
 	
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
-		System.out.println("Recevive message " + msg + " from " + ctx.channel().hashCode());
+		/*
+		 * 可能收到两类报文：登入登出报文，或设备自定报文
+		 * 
+		 * 登入登出报文格式：{报文类型}#{设备类型}#{设备识别id}
+		 * 
+		 * 报文类型：login / logout
+		 * 设备类型：usb
+		 * 设备识别id：usb设备对应的就是32位的usb_id 
+		 */
+		
+		//登入报文
 		if(msg.indexOf("login") == 0)
 		{
 			String[] msgInfo = msg.split("#");
 			String type = msgInfo[1];
+			//usb设备接入
 			if(type.equals("usb"))
 			{
 				String usbId = msgInfo[2];
@@ -47,14 +58,15 @@ public class DeviceMsgHandler extends SimpleChannelInboundHandler<String>{
 			}
 		}
 		
+		//登出报文
 		else if(msg.indexOf("logout") == 0)
 		{
 			Device device = CtxDeviceMap.get(ctx);
-			DeviceMap.remove(device);
-			CtxDeviceMap.remove(ctx);
+			device.offline();
 			device = null;
 		}
 		
+		//设备自定报文
 		else
 		{
 			Device device = CtxDeviceMap.get(ctx);

@@ -1,7 +1,6 @@
 package com.device.base;
 
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -11,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class DeviceMap {
 
-	private static Map<String, Device> map = new ConcurrentHashMap<>();
+	public static Map<String, Device> map = new ConcurrentHashMap<>();
 	
 	private DeviceMap() {
 		
@@ -25,12 +24,7 @@ public class DeviceMap {
 		map.put(id, device);
 	}
 	
-	public static void remove(Device device) {
-		String key = null;
-		for(Entry<String, Device> e : map.entrySet())
-			if(e.getValue().equals(device))
-				key = e.getKey();
-		if(key != null)
-			map.remove(key);
+	public static void remove(String deviceId) {
+		map.remove(deviceId);
 	}
 }
