@@ -9,10 +9,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.device.base.DeviceMap;
 
+/**
+ * 设备对外的服务接口
+ * @author Riviera
+ *
+ */
 @Controller
 @RequestMapping("/service")
 public class DeviceController {
 
+	/**
+	 * 无参数服务
+	 * @param id	设备id   
+	 * @param type	服务名
+	 * @return
+	 */
 	@RequestMapping(value="/{id}/{type}", method=RequestMethod.GET)
 	@ResponseBody
 	public String control(@PathVariable("id") String id, @PathVariable("type") String type) {
@@ -20,6 +31,13 @@ public class DeviceController {
 		return DeviceMap.get(id).control(type);
 	}
 	
+	/**
+	 * 有参数服务
+	 * @param id		设备id
+	 * @param type		服务名
+	 * @param params	服务参数，JSON字符串格式
+	 * @return
+	 */
 	@RequestMapping(value="/{id}/{type}/{params}", method=RequestMethod.GET)
 	@ResponseBody
 	public String control(@PathVariable("id") String id, @PathVariable("type") String type, 

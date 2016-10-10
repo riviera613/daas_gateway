@@ -37,8 +37,7 @@ public class DeviceMsgHandler extends SimpleChannelInboundHandler<String>{
 				{
 					String id = info[0];
 					String deviceName = info[1];
-					Device device = DeviceFactory.getInstance(deviceName, id);
-					device.setCtx(ctx);
+					Device device = DeviceFactory.getInstance(deviceName, id, ctx);
 					DeviceMap.put(id, device);
 					CtxDeviceMap.put(ctx, device);
 					ctx.writeAndFlush("success");

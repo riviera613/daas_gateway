@@ -1,9 +1,16 @@
 package com.device;
 
+import io.netty.channel.ChannelHandlerContext;
+
 import org.json.JSONObject;
 
 import com.device.base.AbstractDevice;
 
+/**
+ * 传感器结点
+ * @author Riviera
+ *
+ */
 public class Sensor extends AbstractDevice {
 	
 	public static final String TEMPERATURE = "temperature";
@@ -12,8 +19,8 @@ public class Sensor extends AbstractDevice {
 	private String temp;
 	private String humi;
 	
-	public Sensor(String id) {
-		super(id);
+	public Sensor(String id, ChannelHandlerContext ctx) {
+		super(id, ctx);
 	}
 
 	@Override

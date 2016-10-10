@@ -1,12 +1,17 @@
 package com.device.base;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * 设备id -> 设备实例的映射
+ * @author Riviera
+ *
+ */
 public class DeviceMap {
 
-	private static Map<String, Device> map = new HashMap<>();
+	private static Map<String, Device> map = new ConcurrentHashMap<>();
 	
 	private DeviceMap() {
 		

@@ -1,5 +1,7 @@
 package com.device;
 
+import io.netty.channel.ChannelHandlerContext;
+
 import org.json.JSONObject;
 
 import com.device.base.AbstractDevice;
@@ -7,10 +9,15 @@ import com.device.base.Device;
 import com.device.base.DeviceFactory;
 import com.device.base.DeviceMap;
 
+/**
+ * 传感器汇聚结点
+ * @author Riviera
+ *
+ */
 public class SensorSink extends AbstractDevice {
 	
-	public SensorSink(String id) {
-		super(id);
+	public SensorSink(String id, ChannelHandlerContext ctx) {
+		super(id, ctx);
 	}
 	
 	@Override

@@ -86,17 +86,4 @@ public class StartGatewaysListener extends ContextLoaderListener{
 		if(deviceMsgHandlerThread != null)
 			deviceMsgHandlerThread.interrupt();
 	}
-	
-/*	public static void main(String[] argv)
-	{
-		File file = new File("./src/com/device/deviceId.properties");
-		try {
-			idProp = new Properties();
-			idProp.load(new FileInputStream(file));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println(idProp.get("067b2303"));
-	}*/
 }
