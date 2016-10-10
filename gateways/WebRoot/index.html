@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>test.html</title>
+	
+    <meta name="keywords" content="keyword1,keyword2,keyword3">
+    <meta name="description" content="this is my page">
+    <meta name="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+
+  </head>
+  
+  <body>
+  	<p>small</p><br />
+	<form action = "test/open.do" method = "post" autocomplete="off">
+		deviceId:<input name = "deviceId" type = "text" />
+		<br/>
+		<input value = "open" type = "submit" />
+	</form>
+	<br/>
+	<form action = "test/stop.do" method = "post" autocomplete="off"> 
+		deviceId:<input name = "deviceId" type = "text"/>
+		<br/>
+		<input value = "stop" type = "submit" />
+	</form>
+	<br/>
+	<form action = "test/update.do" method = "post" autocomplete="off">
+		deviceId:<input name = "deviceId" type = "text" />
+		<br/>
+		dataName:<input name = "dataName" type = "text" />
+		<br/>
+		dataValue:<input name = "dataValue" type = "text" />
+		<br/>
+		<input value = "update" type = "submit" />
+	</form>
+	<br/>
+	<br/>
+	<form action = "test/devices.do" method = "get">
+		<input value = "get" type = "submit" />
+	</form>
+	<br/>
+	<br/>
+	<form action = "test/reset.do" method = "post">
+		<input value = "reset" type = "submit" />
+	</form>
+	<br />
+	<p>large</p>
+	<form action = "test/large/add.do" method = "post" autocomplete="off">
+		num:<input name = "num" type = "text" />
+		<input value = "add" type = "submit" />
+	</form>
+	<form action = "test/large/switch.do" method = "post" autocomplete="off">
+		num:<input name = "num" type = "text" />
+		<input value = "switch" type = "submit" />
+	</form>
+	<form action = "test/large/update.do" method = "post" autocomplete="off">
+		num:<input name = "num" type = "text" />
+		<input value = "update" type = "submit" />
+	</form>
+	<br />
+	
+  </body>
+</html>
