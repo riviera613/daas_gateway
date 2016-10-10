@@ -19,20 +19,20 @@ import com.device.base.DeviceMap;
 public class DeviceController {
 
 	/**
-	 * 无参数服务
+	 * 无参数GET服务
 	 * @param id	设备id   
 	 * @param type	服务名
 	 * @return
 	 */
 	@RequestMapping(value="/{id}/{type}", method=RequestMethod.GET)
 	@ResponseBody
-	public String control(@PathVariable("id") String id, @PathVariable("type") String type) {
+	public String get(@PathVariable("id") String id, @PathVariable("type") String type) {
 		System.out.println("control: " + id + " " + type);
 		return DeviceMap.get(id).control(type);
 	}
 	
 	/**
-	 * 有参数服务
+	 * 有参数GET服务
 	 * @param id		设备id
 	 * @param type		服务名
 	 * @param params	服务参数，JSON字符串格式
@@ -40,14 +40,27 @@ public class DeviceController {
 	 */
 	@RequestMapping(value="/{id}/{type}/{params}", method=RequestMethod.GET)
 	@ResponseBody
-	public String control(@PathVariable("id") String id, @PathVariable("type") String type, @PathVariable("params") String params) {
+	public String get(@PathVariable("id") String id, @PathVariable("type") String type, @PathVariable("params") String params) {
+		System.out.println("control: " + id + " " + type + " " + params);
+		return DeviceMap.get(id).control(type, new JSONObject(params));
+	}
+	
+	/**
+	 * 有参数POST服务
+	 * @param id		设备id
+	 * @param type		服务名
+	 * @param params	服务参数，JSON字符串格式
+	 * @return
+	 */
+	@RequestMapping(value="/{id}/{type}/{params}", method=RequestMethod.POST)
+	@ResponseBody
+	public String post(@PathVariable("id") String id, @PathVariable("type") String type, @PathVariable("params") String params) {
 		System.out.println("control: " + id + " " + type + " " + params);
 		return DeviceMap.get(id).control(type, new JSONObject(params));
 	}
 	
 	/**
 	 * 查看当前所有在线的设备
-	 * @return
 	 */
 	@RequestMapping(value="/device_map", method=RequestMethod.GET)
 	@ResponseBody
