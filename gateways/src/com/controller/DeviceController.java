@@ -46,6 +46,19 @@ public class DeviceController {
 	}
 	
 	/**
+	 * 无参数POST服务
+	 * @param id	设备id   
+	 * @param type	服务名
+	 * @return
+	 */
+	@RequestMapping(value="/{id}/{type}", method=RequestMethod.POST)
+	@ResponseBody
+	public String post(@PathVariable("id") String id, @PathVariable("type") String type) {
+		System.out.println("control: " + id + " " + type);
+		return DeviceMap.get(id).control(type);
+	}
+	
+	/**
 	 * 有参数POST服务
 	 * @param id		设备id
 	 * @param type		服务名
