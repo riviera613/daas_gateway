@@ -1,6 +1,7 @@
-package com.device.base;
+package com.model.base;
 
 import com.listener.CtxDeviceMap;
+import com.utils.DeviceMap;
 
 import io.netty.channel.ChannelHandlerContext;
 

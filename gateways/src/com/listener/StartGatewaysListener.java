@@ -35,7 +35,7 @@ public class StartGatewaysListener extends ContextLoaderListener{
 	public void contextInitialized(ServletContextEvent event) {
 		super.contextInitialized(event);
 		
-		File file = new File(event.getServletContext().getRealPath(".") + "/WEB-INF/classes/com/device/deviceId.properties");
+		File file = new File(event.getServletContext().getRealPath(".") + "/WEB-INF/classes/com/utils/deviceId.properties");
 		try {
 			idProp.load(new FileInputStream(file));
 		} catch (IOException e) {

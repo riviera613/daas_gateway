@@ -1,13 +1,13 @@
 package com.controller;
 
-import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.device.base.DeviceMap;
+import com.service.DeviceService;
 
 /**
  * 设备对外的服务接口
@@ -17,6 +17,9 @@ import com.device.base.DeviceMap;
 @Controller
 @RequestMapping("/service")
 public class DeviceController {
+	
+	@Autowired
+	private DeviceService deviceService;
 
 	/**
 	 * 无参数GET服务
@@ -28,7 +31,7 @@ public class DeviceController {
 	@ResponseBody
 	public String get(@PathVariable("id") String id, @PathVariable("type") String type) {
 		System.out.println("control: " + id + " " + type);
-		return DeviceMap.get(id).control(type);
+		return deviceService.control(id, type);
 	}
 	
 	/**
@@ -42,7 +45,7 @@ public class DeviceController {
 	@ResponseBody
 	public String get(@PathVariable("id") String id, @PathVariable("type") String type, @PathVariable("params") String params) {
 		System.out.println("control: " + id + " " + type + " " + params);
-		return DeviceMap.get(id).control(type, new JSONObject(params));
+		return deviceService.control(id, type, params);
 	}
 	
 	/**
@@ -55,7 +58,7 @@ public class DeviceController {
 	@ResponseBody
 	public String post(@PathVariable("id") String id, @PathVariable("type") String type) {
 		System.out.println("control: " + id + " " + type);
-		return DeviceMap.get(id).control(type);
+		return deviceService.control(id, type);
 	}
 	
 	/**
@@ -69,7 +72,7 @@ public class DeviceController {
 	@ResponseBody
 	public String post(@PathVariable("id") String id, @PathVariable("type") String type, @PathVariable("params") String params) {
 		System.out.println("control: " + id + " " + type + " " + params);
-		return DeviceMap.get(id).control(type, new JSONObject(params));
+		return deviceService.control(id, type, params);
 	}
 	
 	/**
@@ -78,6 +81,6 @@ public class DeviceController {
 	@RequestMapping(value="/device_map", method=RequestMethod.GET)
 	@ResponseBody
 	public String getDeviceMap() {
-		return DeviceMap.map.toString();
+		return deviceService.getDeviceMapStr();
 	}
 }

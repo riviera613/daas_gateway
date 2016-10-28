@@ -1,8 +1,10 @@
-package com.device.base;
+package com.utils;
 
 import io.netty.channel.ChannelHandlerContext;
 
-import com.device.*;
+import com.model.Sensor;
+import com.model.SensorSink;
+import com.model.base.Device;
 
 /**
  * 生成设备实例的工厂

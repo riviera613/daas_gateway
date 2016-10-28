@@ -1,13 +1,14 @@
-package com.device;
+package com.model;
 
 import io.netty.channel.ChannelHandlerContext;
 
 import org.json.JSONObject;
 
-import com.device.base.AbstractDevice;
-import com.device.base.Device;
-import com.device.base.DeviceFactory;
-import com.device.base.DeviceMap;
+import com.model.base.AbstractDevice;
+import com.model.base.Device;
+import com.utils.DeviceFactory;
+import com.utils.DeviceMap;
+
 
 /**
  * 传感器汇聚结点

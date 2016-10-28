@@ -5,7 +5,7 @@ import io.netty.channel.ChannelHandlerContext;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.device.base.Device;
+import com.model.base.Device;
 
 public class CtxDeviceMap {
 

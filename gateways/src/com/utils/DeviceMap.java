@@ -1,7 +1,9 @@
-package com.device.base;
+package com.utils;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import com.model.base.Device;
 
 /**
  * 设备id -> 设备实例的映射

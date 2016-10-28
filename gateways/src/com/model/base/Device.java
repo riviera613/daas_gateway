@@ -1,4 +1,4 @@
-package com.device.base;
+package com.model.base;
 
 import org.json.JSONObject;
 
