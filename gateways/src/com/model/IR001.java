@@ -24,35 +24,42 @@ public class IR001 extends AbstractDevice {
 
 	@Override
 	public String control(String type) {
-		return AbstractDevice.ERROR;
+		return ERROR;
 	}
 
 	@Override
 	public String control(String type, JSONObject params) {
-		StringBuffer buf = new StringBuffer();
-		if(type == IR001.STUDY) {
-			int code = params.getInt(IR001.CODE);
-			buf.append(0x88);
-			buf.append(code);
-			buf.append(0x00);
-			buf.append(0x00);
-			buf.append(0x88 ^ code ^ 0x00 ^ 0x00);
-		} else if(type == IR001.SEND) {
-			int code = params.getInt(IR001.CODE);
-			buf.append(0x86);
-			buf.append(code);
-			buf.append(0x00);
-			buf.append(0x00);
-			buf.append(0x86 ^ code ^ 0x00 ^ 0x00);
-		} else {
-			return AbstractDevice.ERROR;
-		}
-		return AbstractDevice.SUCCESS;
+		if(type.equals(STUDY))
+			return studySignal(params.getInt(CODE));
+		if(type.equals(SEND))
+			return sendSignal(params.getInt(CODE));
+		return ERROR;
 	}
 
 	@Override
 	public void handler(String msg) {
 		
 	}
-
+	
+	public String studySignal(int code) {
+		StringBuffer buf = new StringBuffer();
+		buf.append(0x88);
+		buf.append(code);
+		buf.append(0x00);
+		buf.append(0x00);
+		buf.append(0x88 ^ code ^ 0x00 ^ 0x00);
+		ctx.writeAndFlush(buf.toString());
+		return SUCCESS;
+	}
+	
+	public String sendSignal(int code) {
+		StringBuffer buf = new StringBuffer();
+		buf.append(0x86);
+		buf.append(code);
+		buf.append(0x00);
+		buf.append(0x00);
+		buf.append(0x88 ^ code ^ 0x00 ^ 0x00);
+		ctx.writeAndFlush(buf.toString());
+		return SUCCESS;
+	}
 }

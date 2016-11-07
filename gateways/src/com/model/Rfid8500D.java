@@ -18,6 +18,11 @@ public class Rfid8500D extends AbstractDevice{
 	public static final String SWITCH_OFF = "switch_off";	//关闭
 	public static final String WRITE = "write";				//写数据
 	public static final String ERASE = "erase";				//擦除数据
+	
+	public static final String CARD_ID = "card_id";
+	public static final String START_POS = "start_pos";
+	public static final String WRITE_WORD = "write_word";
+	public static final String ERASE_LENGTH = "erase_length";
 
 	public Rfid8500D(String id, ChannelHandlerContext ctx) {
 		super(id, ctx);
@@ -25,43 +30,26 @@ public class Rfid8500D extends AbstractDevice{
 
 	@Override
 	public String control(String type) {
-		StringBuffer buf = new StringBuffer();
-		if(type.equals(Rfid8500D.SWITCH_ON)) {
-			buf.append(0xAA);
-			buf.append(0x03);
-			buf.append(0x11);
-			buf.append(0x01);
-			buf.append(0x55);
-		} else if(type.equals(Rfid8500D.SWITCH_OFF)) {
-			buf.append(0xAA);
-			buf.append(0x02);
-			buf.append(0x12);
-			buf.append(0x55);			
-		}
-		else
-			return AbstractDevice.ERROR;
-		
-		ctx.writeAndFlush(buf.toString().toCharArray());
-		return AbstractDevice.SUCCESS;
+		if(type.equals(SWITCH_ON))
+			return switchOn();
+		if(type.equals(SWITCH_OFF))
+			return switchOff();		
+		return ERROR;
 	}
 
 	@Override
 	public String control(String type, JSONObject params) {
-		StringBuffer buf = new StringBuffer();
-		if(type.equals(Rfid8500D.WRITE)) {
-
-		} else if(type.equals(Rfid8500D.ERASE)) {
-			
-		}
-		
-		ctx.writeAndFlush(buf.toString().toCharArray());
-		return AbstractDevice.SUCCESS;
+		if(type.equals(WRITE))
+			return writeInfo(params.getString(CARD_ID), params.getInt(START_POS), params.getString(WRITE_WORD));
+		if(type.equals(ERASE))
+			return eraseInfo(params.getString(CARD_ID), params.getInt(START_POS), params.getInt(ERASE_LENGTH));
+		return ERROR;
 	}
 
 	@Override
 	public void handler(String msg) {
 		char []buf = msg.toCharArray();
-		if(buf[2] == 0x10 || buf[2] == 0x11) {  //读取卡号
+		if(buf[2] == 0x10 || buf[2] == 0x11) {
 			int length=(int)buf[1] + 2;
 			String cardId = msg.substring(8, length * 2 - 2);
 			System.out.println("Card ID: " + cardId);
@@ -69,5 +57,34 @@ public class Rfid8500D extends AbstractDevice{
 		} else {
 			System.out.println("error msg");
 		}
+	}
+	
+	public String switchOn() {
+		StringBuffer buf = new StringBuffer();
+		buf.append(0xAA);
+		buf.append(0x03);
+		buf.append(0x11);
+		buf.append(0x01);
+		buf.append(0x55);
+		ctx.writeAndFlush(buf.toString());
+		return SUCCESS;
+	}
+	
+	public String switchOff() {
+		StringBuffer buf = new StringBuffer();
+		buf.append(0xAA);
+		buf.append(0x02);
+		buf.append(0x12);
+		buf.append(0x55);
+		ctx.writeAndFlush(buf.toString());
+		return SUCCESS;
+	}
+	
+	public String writeInfo(String cardId, int startPos, String startWord) {
+		return UNCOMPLETED;
+	}
+	
+	public String eraseInfo(String cardId, int startPos, int eraseLength) {
+		return UNCOMPLETED;
 	}
 }

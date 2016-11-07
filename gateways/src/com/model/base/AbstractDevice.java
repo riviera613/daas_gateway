@@ -14,6 +14,7 @@ public abstract class AbstractDevice implements Device{
 	
 	public static final String SUCCESS = "success";
 	public static final String ERROR = "error";
+	public static final String UNCOMPLETED = "uncompeleted function";
 	
 	protected String id;
 	

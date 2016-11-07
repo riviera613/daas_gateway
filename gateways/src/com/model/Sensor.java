@@ -26,16 +26,16 @@ public class Sensor extends AbstractDevice {
 
 	@Override
 	public String control(String type) {
-		if(type.equals(Sensor.TEMPERATURE))
-			return temp;
-		else if(type.equals(Sensor.HUMIDITY))
-			return humi;
-		return AbstractDevice.ERROR;
+		if(type.equals(TEMPERATURE))
+			return getTemp();
+		if(type.equals(HUMIDITY))
+			return getHumi();
+		return ERROR;
 	}
 
 	@Override
 	public String control(String type, JSONObject params) {
-		return AbstractDevice.ERROR;
+		return ERROR;
 	}
 
 	@Override
@@ -45,5 +45,13 @@ public class Sensor extends AbstractDevice {
 		if(temp.equals("00") && humi.equals("00")) {
 			offline();
 		}
+	}
+	
+	public String getTemp() {
+		return temp;
+	}
+	
+	public String getHumi() {
+		return humi;
 	}
 }
