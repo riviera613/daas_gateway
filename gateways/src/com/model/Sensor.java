@@ -14,8 +14,8 @@ import com.model.base.AbstractDevice;
  */
 public class Sensor extends AbstractDevice {
 	
-	public static final String TEMPERATURE = "temperature";
-	public static final String HUMIDITY = "humidity";
+	public static final String TEMPERATURE = "temperature";	//温度值
+	public static final String HUMIDITY = "humidity";		//湿度值
 	
 	private String temp;
 	private String humi;
