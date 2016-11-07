@@ -2,10 +2,7 @@ package com.utils;
 
 import io.netty.channel.ChannelHandlerContext;
 
-import com.model.IR001;
-import com.model.Rfid8500D;
-import com.model.Sensor;
-import com.model.SensorSink;
+import com.model.*;
 import com.model.base.Device;
 
 /**
@@ -31,6 +28,9 @@ public class DeviceFactory {
 		
 		if(name.equals("IR001"))
 			return new IR001(id, ctx);
+		
+		if(name.equals("ARDrone"))
+			return new ARDrone(id);
 		
 		return null;
 	}
