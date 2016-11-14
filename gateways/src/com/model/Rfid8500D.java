@@ -30,20 +30,20 @@ public class Rfid8500D extends AbstractDevice{
 
 	@Override
 	public String control(String type) {
-		if(type.equals(SWITCH_ON))
-			return switchOn();
-		if(type.equals(SWITCH_OFF))
-			return switchOff();		
-		return ERROR;
+		switch(type) {
+		case SWITCH_ON: return switchOn();
+		case SWITCH_OFF: return switchOff();
+		default: return ERROR;
+		}
 	}
 
 	@Override
 	public String control(String type, JSONObject params) {
-		if(type.equals(WRITE))
-			return writeInfo(params.getString(CARD_ID), params.getInt(START_POS), params.getString(WRITE_WORD));
-		if(type.equals(ERASE))
-			return eraseInfo(params.getString(CARD_ID), params.getInt(START_POS), params.getInt(ERASE_LENGTH));
-		return ERROR;
+		switch(type) {
+		case WRITE: return writeInfo(params.getString(CARD_ID), params.getInt(START_POS), params.getString(WRITE_WORD));
+		case ERASE: return eraseInfo(params.getString(CARD_ID), params.getInt(START_POS), params.getInt(ERASE_LENGTH));
+		default: return ERROR;
+		}
 	}
 
 	@Override
@@ -61,21 +61,21 @@ public class Rfid8500D extends AbstractDevice{
 	
 	public String switchOn() {
 		StringBuffer buf = new StringBuffer();
-		buf.append(0xAA);
-		buf.append(0x03);
-		buf.append(0x11);
-		buf.append(0x01);
-		buf.append(0x55);
+		buf.append((char)0xAA);
+		buf.append((char)0x03);
+		buf.append((char)0x11);
+		buf.append((char)0x01);
+		buf.append((char)0x55);
 		ctx.writeAndFlush(buf.toString());
 		return SUCCESS;
 	}
 	
 	public String switchOff() {
 		StringBuffer buf = new StringBuffer();
-		buf.append(0xAA);
-		buf.append(0x02);
-		buf.append(0x12);
-		buf.append(0x55);
+		buf.append((char)0xAA);
+		buf.append((char)0x02);
+		buf.append((char)0x12);
+		buf.append((char)0x55);
 		ctx.writeAndFlush(buf.toString());
 		return SUCCESS;
 	}

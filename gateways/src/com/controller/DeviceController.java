@@ -83,4 +83,16 @@ public class DeviceController {
 	public String getDeviceMap() {
 		return deviceService.getDeviceMapStr();
 	}
+	
+	/**
+	 * 手动创建一个设备实例
+	 * @param id	设备id
+	 * @param name	设备实例对应的类名
+	 * @return
+	 */
+	@RequestMapping(value="/create/{id}/{name}", method=RequestMethod.POST)
+	@ResponseBody
+	public String createDevice(@PathVariable("id") String id, @PathVariable("name") String name) {
+		return deviceService.createDevice(id, name) ? "success" : "false";
+	}
 }

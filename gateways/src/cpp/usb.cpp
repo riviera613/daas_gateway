@@ -24,6 +24,8 @@ int usbfd;
 
 int sockfd;
 
+pthread_t recvId, sendId;
+
 int openUsb(char com)
 {
     string path("/dev/ttyUSB");
@@ -110,11 +112,41 @@ void* recvMsg(void* argc)
 {
     while(true)
     {
-        char buf[128];
+        unsigned char buf[128];
         int l = recv(sockfd, buf, sizeof(buf), 0);
-        write(usbfd, buf, sizeof(buf));
         buf[l] = '\0';
         cout << "Client Recv " << buf << endl;
+        unsigned char realBuf[128];
+        int ll = 0;
+        for(int i = 0; i < l; i++)
+        {
+            if(buf[i] == 194 && i < l - 1)
+                realBuf[ll++] = buf[++i];
+            else if(buf[i] == 195 && i < l - 1)
+                realBuf[ll++] = buf[++i] + 64;
+            else
+                realBuf[ll++] = buf[i];
+        }
+        realBuf[ll] = '\0';
+        for(int i = 0; i < ll; i++)
+            cout << (int)(realBuf[i]) << " ";
+        cout << endl;
+        write(usbfd, realBuf, ll);
+    }
+}
+
+void* sendMsg(void* argc)
+{
+    while(true)
+    {
+        char buf[128];
+        int l = read(usbfd, buf, 128);
+        buf[l] = '\0';
+        cout << "Client Send: " << buf << endl;
+        for(int i = 0; i < l; i++)
+            cout << (int)buf[i];
+        cout << endl;
+        send(sockfd, buf, l, 0);
     }
 }
 
@@ -159,18 +191,12 @@ int main(int argc, char** argv)
 	if(loginAckStr == "success")
     {
 		cout << "Client Login Success" << endl;
-        //server -> client
-        pthread_t id;
-        pthread_create(&id, NULL, recvMsg, NULL);
+        pthread_create(&recvId, NULL, recvMsg, NULL);
+        pthread_create(&sendId, NULL, sendMsg, NULL);
 
-        //client -> server
         while(true)
         {
-            char buf[128];
-            int l = read(usbfd, buf, 128);
-            buf[l] = '\0';
-            cout << "Client Send: " << buf << endl;
-            send(sockfd, buf, l, 0);
+
         }
     }
     else

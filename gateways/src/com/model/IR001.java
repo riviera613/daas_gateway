@@ -29,11 +29,11 @@ public class IR001 extends AbstractDevice {
 
 	@Override
 	public String control(String type, JSONObject params) {
-		if(type.equals(STUDY))
-			return studySignal(params.getInt(CODE));
-		if(type.equals(SEND))
-			return sendSignal(params.getInt(CODE));
-		return ERROR;
+		switch(type) {
+		case STUDY: return studySignal(params.getInt(CODE));
+		case SEND: return sendSignal(params.getInt(CODE));
+		default: return ERROR;
+		}
 	}
 
 	@Override
@@ -42,23 +42,23 @@ public class IR001 extends AbstractDevice {
 	}
 	
 	public String studySignal(int code) {
-		StringBuffer buf = new StringBuffer();
-		buf.append(0x88);
-		buf.append(code);
-		buf.append(0x00);
-		buf.append(0x00);
-		buf.append(0x88 ^ code ^ 0x00 ^ 0x00);
+		String buf = "";
+		buf += (char)0x88;
+		buf += (char)code;
+		buf += (char)0x00;
+		buf += (char)0x00;
+		buf += (char)(0x88 ^ code ^ 0x00 ^ 0x00);
 		ctx.writeAndFlush(buf.toString());
 		return SUCCESS;
 	}
 	
 	public String sendSignal(int code) {
 		StringBuffer buf = new StringBuffer();
-		buf.append(0x86);
-		buf.append(code);
-		buf.append(0x00);
-		buf.append(0x00);
-		buf.append(0x88 ^ code ^ 0x00 ^ 0x00);
+		buf.append((char)0x86);
+		buf.append((char)code);
+		buf.append((char)0x00);
+		buf.append((char)0x00);
+		buf.append((char)(0x86 ^ code ^ 0x00 ^ 0x00));
 		ctx.writeAndFlush(buf.toString());
 		return SUCCESS;
 	}

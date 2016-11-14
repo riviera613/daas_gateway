@@ -32,6 +32,9 @@ public class DeviceFactory {
 		if(name.equals("ARDrone"))
 			return new ARDrone(id);
 		
+		if(name.equals("Car"))
+			return new Car(id);
+		
 		return null;
 	}
 }

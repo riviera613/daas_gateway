@@ -26,11 +26,11 @@ public class Sensor extends AbstractDevice {
 
 	@Override
 	public String control(String type) {
-		if(type.equals(TEMPERATURE))
-			return getTemp();
-		if(type.equals(HUMIDITY))
-			return getHumi();
-		return ERROR;
+		switch(type) {
+		case TEMPERATURE: return getTemp();
+		case HUMIDITY: return getHumi();
+		default: return ERROR;
+		}
 	}
 
 	@Override
